@@ -21,6 +21,7 @@ int main(){
 		char** matrix = Matrix(11);
 		FillMatrix(matrix,11);
 		PrintMatrix(matrix,11);
+		cout<<"**ADVERTENCIA** Cualquier letra despues de la 'K' se tomara como una 'A'"<<endl;
 		Jugar(matrix);
 		FreeMatrix(matrix,11);
 		cout<<"Desea continuar? [s/n]: ";
@@ -346,6 +347,9 @@ int Fila(char letra){
                         break;
 		case 'K':
 			fila=10;
+			break;
+		default:
+			fila=0;
 			break;
 	}
 return fila;
