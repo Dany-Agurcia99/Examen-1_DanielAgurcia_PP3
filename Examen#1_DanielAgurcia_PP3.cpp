@@ -12,6 +12,9 @@ void FreeMatrix(char**,int);
 void FillMatrix(char**,int);
 void Jugar(char**);
 int Fila(char);
+bool Ganar(char**,bool);
+void Comer(char**,bool);
+void MoverVali(char**,int,int);
 int main(){
 	char resp='s';
 	while(resp == 's' || resp=='S'){
@@ -95,7 +98,23 @@ void Jugar(char** matrix){
                         }else{
                                 columna2=coord2[2]-'0';
                         }
-			while(matrix[fila2][columna2]!=' '){
+			/*while(fila1!=fila2 && columna1!=columna2){
+                                cout<<"Solo puede moverse vertical u horizontal"<<endl;
+                                cout<<"Ingrese la coordenada de la casilla donde movera la pieza BLANCA: ";
+                                cin>>coord2;
+                                //fila2
+                                fila=coord2[0];
+                                fila2=Fila(fila);
+                                //columna2
+                                if(coord2.length()==4){
+                                        columna2=10;
+
+                                }else{
+                                        columna2=coord2[2]-'0';
+                                }
+
+                        }*/
+			while((matrix[fila2][columna2]!=' ')||(fila1!=fila2 && columna1!=columna2)){
 				cout<<"La casilla seleccionada esta ocupada"<<endl;
 				cout<<"Ingrese la coordenada de la casilla donde movera la pieza NEGRA: ";
                  	      	cin>>coord2;
@@ -111,6 +130,8 @@ void Jugar(char** matrix){
 			}
 			matrix[fila1][columna1]=' ';
 			matrix[fila2][columna2]='%';
+			Comer(matrix,turno);
+			ganar = Ganar(matrix, turno);
 			turno=false;
 		}else{
 			cout<<"Ingrese la coordenada de la pieza BLANCA que quiere mover: ";
@@ -123,7 +144,6 @@ void Jugar(char** matrix){
                                 columna1=10;
                         }else{
                                 columna1=coord1[2]-'0';
-                                cout<<columna1;
                         }
 			while(matrix[fila1][columna1]!='&' && matrix[fila1][columna1]!='W'){
                                 cout<<"La casilla seleccionada no tiene una pieza blanca"<<endl;
@@ -151,7 +171,23 @@ void Jugar(char** matrix){
                         }else{
                                 columna2=coord2[2]-'0';
                         }
-			while(matrix[fila2][columna2]!=' '){
+			/*while(fila1!=fila2 && columna1!=columna2){
+				cout<<"Solo puede moverse vertical u horizontal"<<endl;
+				cout<<"Ingrese la coordenada de la casilla donde movera la pieza BLANCA: ";
+                        	cin>>coord2;
+                        	//fila2
+                        	fila=coord2[0];
+                        	fila2=Fila(fila);
+                        	//columna2
+                        	if(coord2.length()==4){
+                                	columna2=10;
+
+                        	}else{
+                                	columna2=coord2[2]-'0';
+                        	}
+
+			}*/
+			while((matrix[fila2][columna2]!=' ')||(fila1!=fila2 && columna1!=columna2)){
                                 cout<<"La casilla seleccionada esta ocupada"<<endl;
                                 cout<<"Ingrese la coordenada de la casilla donde movera la pieza NEGRA: ";
                                 cin>>coord2;
@@ -161,9 +197,8 @@ void Jugar(char** matrix){
                                 //columna2
                                 if(coord2.length()==4){
                                         columna2=10;
-                                }else{
+                               }else{
                                         columna2=coord2[2]-'0';
-                                        cout<<columna2;
                                 }
                         }
 			if(matrix[fila1][columna1]=='W'){
@@ -173,10 +208,17 @@ void Jugar(char** matrix){
 				matrix[fila1][columna1]=' ';
                         	matrix[fila2][columna2]='&';
 			}
+			Comer(matrix,turno);
+			ganar = Ganar(matrix, turno);
 			turno=true;
 		}
 		PrintMatrix(matrix,11);
 	}
+	if(turno==true){
+        	cout<<"FELICIDADES SUECOS HAN GANADO!"<<endl;
+        }else{
+        	cout<<"FELICIDADES MOSCOVITAS HAN GANADO!"<<endl;
+        }
 }
 
 void FillMatrix(char** matrix, int size){
@@ -191,18 +233,21 @@ void FillMatrix(char** matrix, int size){
 	matrix[1][4]='%';
         matrix[1][6]='%';
         matrix[2][5]='%';
+
 	matrix[10][4]='%';
         matrix[10][5]='%';
         matrix[10][6]='%';
 	matrix[9][4]='%';
         matrix[9][6]='%';
         matrix[8][5]='%';
+
 	matrix[4][0]='%';
         matrix[5][0]='%';
         matrix[6][0]='%';
 	matrix[4][1]='%';
         matrix[6][1]='%';
         matrix[5][2]='%';
+
 	matrix[4][10]='%';
         matrix[5][10]='%';
         matrix[6][10]='%';
@@ -270,5 +315,57 @@ int Fila(char letra){
 			fila=10;
 			break;
 	}
-	return fila;
+return fila;
 }
+
+bool Ganar(char** matrix, bool turno){
+	int fila;
+	int columna;
+	bool gano=false;
+	if(turno==true){
+		for(int i=0;i<11;i++){
+			for(int j=0;j<11;j++){
+				if(matrix[i][j]=='W'){
+					fila=i;
+					columna=j;
+				}
+			}
+		}
+		if(matrix[fila-1][columna]=='%' && matrix[fila+1][columna]=='%' && matrix[fila][columna-1]=='%' && matrix[fila][columna+1]=='%'){
+		gano=true;
+		}
+	}else{
+		if(matrix[0][0]=='W' || matrix[0][10]=='W' || matrix[10][0]=='W' || matrix[10][10]=='W'){
+			gano=true;
+		}
+}
+return gano;
+}
+void Comer(char** matrix, bool turno){
+        for(int i=1;i<10;i++){
+                for(int j=1;j<10;j++){
+                    if(turno==true){
+			    
+			    if(matrix[i][j]=='&'){
+				    if(matrix[i-1][j]=='%' && matrix[i+1][j]=='%'){
+					    matrix[i][j]=' ';
+				    }else if(matrix[i][j-1]=='%' && matrix[i][j+1]=='%'){
+					    matrix[i][j]=' ';
+				    }
+			    }
+			    
+        	    }else{
+			    
+			    if(matrix[i][j]=='%'){
+				    if(matrix[i-1][j]=='&' && matrix[i+1][j]=='&'){
+                                            matrix[i][j]=' ';
+                                    }else if(matrix[i][j-1]=='&' && matrix[i][j+1]=='&'){
+                                            matrix[i][j]=' ';
+                                    }
+			    }
+			    
+ 	       	    }    
+                }
+        }
+}
+
