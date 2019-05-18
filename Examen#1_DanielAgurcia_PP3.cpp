@@ -115,18 +115,34 @@ void Jugar(char** matrix){
 
                         }*/
 			while((matrix[fila2][columna2]!=' ')||(fila1!=fila2 && columna1!=columna2)){
-				cout<<"La casilla seleccionada esta ocupada"<<endl;
-				cout<<"Ingrese la coordenada de la casilla donde movera la pieza NEGRA: ";
-                 	      	cin>>coord2;
-                       	 	//fila2
-                       		fila=coord2[0];
-                       		fila2=Fila(fila);
-                        	//columna2
-                       	 	if(coord2.length()==4){
-                       	        	columna2=10;
-                       	 	}else{
-                        		columna2=coord2[2]-'0';
-                        	}	
+				if(fila1!=fila2 && columna1!=columna2){
+				        cout<<"Solo puede mover horizontal o verticalmente"<<endl;
+                                        cout<<"Ingrese la coordenada de la casilla donde movera la pieza NEGRA: ";
+                                        cin>>coord2;
+                                        //fila2
+                                        fila=coord2[0];
+                                        fila2=Fila(fila);
+                                        //columna2
+                                        if(coord2.length()==4){
+                                                columna2=10;
+                                        }else{
+                                                columna2=coord2[2]-'0';
+                                        }
+
+				}else{
+					cout<<"La casilla seleccionada esta ocupada"<<endl;
+					cout<<"Ingrese la coordenada de la casilla donde movera la pieza NEGRA: ";
+                 	      		cin>>coord2;
+                       	 		//fila2
+                       			fila=coord2[0];
+                       			fila2=Fila(fila);
+                        		//columna2
+                       	 		if(coord2.length()==4){
+                       	        		columna2=10;
+                       	 		}else{
+                        			columna2=coord2[2]-'0';
+                        		}
+				}	
 			}
 			matrix[fila1][columna1]=' ';
 			matrix[fila2][columna2]='%';
@@ -188,18 +204,35 @@ void Jugar(char** matrix){
 
 			}*/
 			while((matrix[fila2][columna2]!=' ')||(fila1!=fila2 && columna1!=columna2)){
-                                cout<<"La casilla seleccionada esta ocupada"<<endl;
-                                cout<<"Ingrese la coordenada de la casilla donde movera la pieza NEGRA: ";
-                                cin>>coord2;
-                                //fila2
-                                fila=coord2[0];
-                                fila2=Fila(fila);
-                                //columna2
-                                if(coord2.length()==4){
-                                        columna2=10;
-                               }else{
-                                        columna2=coord2[2]-'0';
+				if(fila1!=fila2 && columna1!=columna2){
+                                        cout<<"Solo puede mover horizontal o verticalmente"<<endl;
+                                        cout<<"Ingrese la coordenada de la casilla donde movera la pieza NEGRA: ";
+                                        cin>>coord2;
+                                        //fila2
+                                        fila=coord2[0];
+                                        fila2=Fila(fila);
+                                        //columna2
+                                        if(coord2.length()==4){
+                                                columna2=10;
+                                        }else{
+                                                columna2=coord2[2]-'0';
+                                        }
+
                                 }
+				else{
+					cout<<"La casilla seleccionada esta ocupada"<<endl;
+                                	cout<<"Ingrese la coordenada de la casilla donde movera la pieza NEGRA: ";
+                                	cin>>coord2;
+                                	//fila2
+                                	fila=coord2[0];
+                                	fila2=Fila(fila);
+                                	//columna2
+                                	if(coord2.length()==4){
+                                        	columna2=10;
+                               		}else{
+                                        	columna2=coord2[2]-'0';
+                                	}
+				}
                         }
 			if(matrix[fila1][columna1]=='W'){
 				matrix[fila1][columna1]=' ';
